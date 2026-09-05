@@ -1,4 +1,4 @@
-from database import create_task, display_all_tasks
+from database import create_task, display_all_tasks, display_a_task
 
 options = """
 ============================================
@@ -26,7 +26,7 @@ def main() -> None:
                 created_at : str = input("Enter the task creation date: ")
                 create_task(title, description, status, priority, created_at)
             case 2: display_all_tasks()
-            case 3: ... # TODO: Implement getting a specific task
+            case 3: display_a_task(input("Enter the task ID: "))
             case 4: ... # TODO: Implement updating a task
             case 5: ... # TODO: Implement deleting a task
             case 6: ... # TODO: Implement filtering tasks

@@ -1,5 +1,3 @@
-from calendar import c
-from operator import length_hint
 import sqlite3
 
 con = sqlite3.connect("task_manager.db")
@@ -41,5 +39,21 @@ def display_all_tasks():
         print(f"Create at: {res[task_num][5]}")
         print("=======================================================================")
 
+def display_a_task(task_id : str):
+    res = cur.execute("SELECT * FROM tasks WHERE id = ?", (task_id,)).fetchall()
+    if not res:
+        print("Task not found.")
+        return
+    task = f"""
+ID: {res[0][0]}
+Title: {res[0][1]}
+Description: {"No description" if res[0][2] else res[0][2]}
+Status: {res[0][3]}
+Priority: {res[0][4]}
+Create at: {res[0][5]}
+=======================================================================
+"""
+    print(task)
+
 if __name__ == "__main__":
-    ...
+    display_a_task("2")

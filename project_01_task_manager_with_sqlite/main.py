@@ -1,6 +1,6 @@
-from database import create_task
+from database import create_task, display_all_tasks
 
-options = """"
+options = """
 ============================================
 1. Create a task
 2. List tasks
@@ -25,7 +25,7 @@ def main() -> None:
                 priority : str = input("Enter the task priority: ")
                 created_at : str = input("Enter the task creation date: ")
                 create_task(title, description, status, priority, created_at)
-            case 2: ... # TODO: Implement getting all tasks
+            case 2: display_all_tasks()
             case 3: ... # TODO: Implement getting a specific task
             case 4: ... # TODO: Implement updating a task
             case 5: ... # TODO: Implement deleting a task

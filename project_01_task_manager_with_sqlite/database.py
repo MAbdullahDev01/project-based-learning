@@ -55,5 +55,17 @@ Create at: {res[0][5]}
 """
     print(task)
 
+def update_task(id: str, field: str, change: str) -> None:
+    allowed_fields = ["title", "description", "status", "priority"]
+    if field not in allowed_fields:
+        raise ValueError("Enter a valid field name")
+    try:
+        cur.execute(f"UPDATE tasks SET {field} = ? WHERE id = ?", (change, id))
+    except sqlite3.Error as e:
+        print(e)
+    finally:
+        con.commit()
+
+
 if __name__ == "__main__":
-    display_a_task("2")
+    ...

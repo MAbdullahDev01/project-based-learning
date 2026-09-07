@@ -1,4 +1,4 @@
-from database import create_task, display_all_tasks, display_a_task, update_task
+from database import create_task, delete_task, display_all_tasks, display_a_task, update_task
 
 options = """
 ============================================
@@ -32,7 +32,7 @@ def main() -> None:
                 field = input("Enter field name: ").lower()
                 change = input("Enter changes: ")
                 update_task(id, field, change)
-            case 5: ... # TODO: Implement deleting a task
+            case 5: delete_task(input("Enter task id: "))
             case 6: ... # TODO: Implement filtering tasks
             case 7: running = False
 

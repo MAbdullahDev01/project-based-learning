@@ -66,6 +66,15 @@ def update_task(id: str, field: str, change: str) -> None:
     finally:
         con.commit()
 
+def delete_task(id: str) -> None:
+    if not id:
+        raise ValueError("ID not given")
+    try:
+        cur.execute("DELETE FROM tasks WHERE id = ?", (id,))
+    except sqlite3.Error as e:
+        print(e)
+    finally:
+        con.commit()
 
 if __name__ == "__main__":
     ...

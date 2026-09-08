@@ -76,5 +76,22 @@ def delete_task(id: str) -> None:
     finally:
         con.commit()
 
+def filter_task(priority: str):
+    if not priority:
+        raise ValueError("priority is not given")
+    try:
+        res = cur.execute("SELECT * FROM tasks WHERE priority = ?", (priority,)).fetchall()
+    except sqlite3.Error as e:
+        print(e)
+    num_of_tasks : int = len(res)
+    for task_num in range(num_of_tasks):
+        print(f"ID: {res[task_num][0]}")
+        print(f"Title: {res[task_num][1]}")
+        print(f"Description: {"No description" if res[task_num][2] else res[task_num][2]}")
+        print(f"Status: {res[task_num][3]}")
+        print(f"Priority: {res[task_num][4]}")
+        print(f"Create at: {res[task_num][5]}")
+        print("=======================================================================")
+    
 if __name__ == "__main__":
     ...

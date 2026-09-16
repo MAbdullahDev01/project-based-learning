@@ -9,29 +9,30 @@ if not settings.IS_DB_CREATED:
 
 
 def create_dataset(name: str, description: str | None, created_at: str) -> None:
-    try:
-        id = cur.execute("SELECT id FROM datasets ORDER BY id DESC LIMIT 1").fetchone()
-    except:
-        id = None
-    
-    if id is None:
-        id = 1
-    else:
-        id = int(id[0]) + 1
-    try:
-        command = f"""
-        INSERT INTO tasks VALUES
-        ("{id}", "{name}", "{description}", "{created_at}")
-        """
-        cur.execute(command)
-    except sqlite3.Error as e:
-        print(f"An error occurred: {e}")
-    finally:
-        con.commit()
+    with sqlite3.connect("dataset.db") as con:
+        try:
+            id = cur.execute("SELECT id FROM datasets ORDER BY id DESC LIMIT 1").fetchone()
+        except:
+            id = None
+        
+        if id is None:
+            id = 1
+        else:
+            id = int(id[0]) + 1
+        try:
+            command = f"""
+            INSERT INTO tasks VALUES
+            ("{id}", "{name}", "{description}", "{created_at}")
+            """
+            cur.execute(command)
+        except sqlite3.Error as e:
+            print(f"An error occurred: {e}")
+        finally:
+            con.commit()
 
         # for debugging purposes, print the current state of the tasks table
-        # res = cur.execute("SELECT * FROM tasks")
-        # print(res.fetchall())
+        res = cur.execute("SELECT * FROM tasks")
+        print(res.fetchall())
 
 def display_all_tasks():
     res = cur.execute("SELECT * FROM datasets").fetchall()
